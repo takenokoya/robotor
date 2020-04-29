@@ -59,7 +59,7 @@ class RestaurantRobot(Robot):
     @_hello_decorator
     def ask_user_favorite(self):
         while True:
-            template = console.get_template('which_restrant.txt', self.speak_color)
+            template = console.get_template('which_restaurant.txt', self.speak_color)
             restaurant = input(template.substitute({
                 'robot_name': self.name,
                 'user_name': self.user_name,
