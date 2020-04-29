@@ -1,4 +1,4 @@
-#TODO: ranking model
+from roboter.models import ranking
 from roboter.views import console
 
 
@@ -23,7 +23,7 @@ class Robot(object):
 class RestaurantRobot(Robot):
     def __init__(self, name=DEFAULT_ROBOT_NAME):
         super().__init__(name=name)
-        # TODO: ranking model
+        self.ranking_model = ranking.RankingModel()
 
     def _hello_decorator(func):
         def wrapper(self):
@@ -34,7 +34,27 @@ class RestaurantRobot(Robot):
 
     @_hello_decorator
     def recommend_restaurant(self):
-        # TODO: ranking model
+        new_recommend_restaurant = self.ranking_model.get_most_popular()
+        if not new_recommend_restaurant:
+            return None
+
+        will_recommend_restaurants = [new_recommend_restaurant]
+        while True:
+            template = console.get_template('greeting.txt', self.speak_color)
+            is_yes = input(template.substitute({
+                'robot_name': self.name,
+                'user_name': self.user_name,
+                'restaurant': new_recommend_restaurant,
+            }))
+
+            if is_yes.lower() == 'y' or is_yes.lower() == 'yes':
+                break
+
+            if is_yes.lower() == 'n' or is_yes.lower() == 'no':
+                new_recommend_restaurant = self.ranking_model.get_most_popular(not_list=will_recommend_restaurants)
+                if not new_recommend_restaurant:
+                    break
+                will_recommend_restaurants.append(new_recommend_restaurant)
 
     @_hello_decorator
     def ask_user_favorite(self):
@@ -45,7 +65,7 @@ class RestaurantRobot(Robot):
                 'user_name': self.user_name,
             }))
             if restaurant:
-                # TODO: ranking model
+                self.ranking_model.increment(restaurant)
                 break
 
     @_hello_decorator
