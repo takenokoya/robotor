@@ -20,7 +20,7 @@ class Robot(object):
                 break
 
 
-class RestrantRobot(Robot):
+class RestaurantRobot(Robot):
     def __init__(self, name=DEFAULT_ROBOT_NAME):
         super().__init__(name=name)
         # TODO: ranking model
@@ -33,18 +33,18 @@ class RestrantRobot(Robot):
         return wrapper
 
     @_hello_decorator
-    def recommend_restrant(self):
+    def recommend_restaurant(self):
         # TODO: ranking model
 
     @_hello_decorator
     def ask_user_favorite(self):
         while True:
             template = console.get_template('which_restrant.txt', self.speak_color)
-            restrant = input(template.substitute({
+            restaurant = input(template.substitute({
                 'robot_name': self.name,
                 'user_name': self.user_name,
             }))
-            if restrant:
+            if restaurant:
                 # TODO: ranking model
                 break
 
