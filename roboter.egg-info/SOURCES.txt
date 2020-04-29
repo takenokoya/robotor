@@ -1,0 +1,7 @@
+README.md
+main.py
+setup.py
+roboter.egg-info/PKG-INFO
+roboter.egg-info/SOURCES.txt
+roboter.egg-info/dependency_links.txt
+roboter.egg-info/top_level.txt
