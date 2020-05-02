@@ -25,7 +25,6 @@ class RankingModel(CsvModel):
         self.data = collections.defaultdict(int)
         self.load_data()
 
-
     def get_csv_file_path(self):
         csv_file_path = None
         try:
